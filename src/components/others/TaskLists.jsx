@@ -1,6 +1,6 @@
 
 
-export const TaskLists = () =>{
+export const TaskLists = ({data}) =>{
 
     return (
         <div id="TaskList" className="  w-full h-[40%] mt-8 px-4 flex flex-nowrap  gap-3 overflow-x-auto "> {/* grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] */}

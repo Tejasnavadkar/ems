@@ -1,6 +1,6 @@
 
 
-export const TaskGrid = () => {
+export const TaskGrid = ({data}) => {
 
     return (
         <>

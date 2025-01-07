@@ -3,14 +3,16 @@ import { TaskGrid } from "../others/TaskGrid"
 import { TaskLists } from "../others/TaskLists"
 
 
-const EmployeeDashboard = () =>{
+const EmployeeDashboard = ({user}) =>{
+
+    console.log('user--',user)
 
     return (
         
             <div className="bg-[#1c1c1c] h-screen">
-                <Header/>
-                <TaskGrid/>
-                <TaskLists/>
+                <Header data={user} />
+                <TaskGrid data={user} />
+                <TaskLists data={user} />
             </div>
     
     )
