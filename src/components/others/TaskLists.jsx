@@ -1,54 +1,48 @@
+import { AcceptedTask } from "../TaskList/AcceptTask"
+import { CompleteTask } from "../TaskList/CompleteTask"
+import { FailedTask } from "../TaskList/FailedTask"
+import { NewTask } from "../TaskList/NewTask"
 
 
-export const TaskLists = ({data}) =>{
+export const TaskLists = ({ data }) => {
 
     return (
         <div id="TaskList" className="  w-full h-[40%] mt-8 px-4 flex flex-nowrap  gap-3 overflow-x-auto "> {/* grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] */}
-           
-           <div className="bg-red-400 w-[300px] shrink-0  rounded-md p-4 ">
-            <div className="flex justify-between text-sm" >
-                <span className="bg-red-600 px-2 rounded-md py-1">High</span>
-                <span>20 feb 2024</span>
-            </div>
-            <div className="mt-4 flex flex-col gap-2">
-                <div className="text-xl font-bold">Make a YouTube Video</div>
-                <div className="text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, praesentium! Voluptas soluta fugiat nostrum se</div>
-            </div>
-           </div>
 
-           <div className="bg-green-400 w-[300px] shrink-0  rounded-md p-4 ">
-            <div className="flex justify-between text-sm" >
-                <span className="bg-red-600 px-2 rounded-md py-1">High</span>
-                <span>20 feb 2024</span>
-            </div>
-            <div className="mt-4 flex flex-col gap-2">
-                <div className="text-xl font-bold">Make a YouTube Video</div>
-                <div className="text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, praesentium! Voluptas soluta fugiat nostrum se</div>
-            </div>
-           </div>
+            {data.tasks.map((task) => {
+                if (task.active) {
+                    return <AcceptedTask task={task} />
+                } else if (task.newTask) {
+                    return <NewTask task={task} />
+                } else if (task.completed) {
+                    return <CompleteTask task={task} />
+                } else if (task.failed) {
+                    return <FailedTask task={task} />
+                }
+            })}
 
-           <div className="bg-blue-400 w-[300px] shrink-0  rounded-md p-4 ">
-            <div className="flex justify-between text-sm" >
-                <span className="bg-red-600 px-2 rounded-md py-1">High</span>
-                <span>20 feb 2024</span>
-            </div>
-            <div className="mt-4 flex flex-col gap-2">
-                <div className="text-xl font-bold">Make a YouTube Video</div>
-                <div className="text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, praesentium! Voluptas soluta fugiat nostrum se</div>
-            </div>
-           </div>
+             {/* using switch case */}
+            {/* {data.tasks.map((task) => {
+                // Determine task status to use in the switch
+                const taskStatus = task.active ? 'active' :
+                             task.newTask ? 'newTask' :
+                             task.completed ? 'completed' :
+                             task.failed ? 'failed' : '';
 
-           <div className="bg-yellow-400 w-[300px] shrink-0  rounded-md p-4 ">
-            <div className="flex justify-between text-sm" >
-                <span className="bg-red-600 px-2 rounded-md py-1">High</span>
-                <span>20 feb 2024</span>
-            </div>
-            <div className="mt-4 flex flex-col gap-2">
-                <div className="text-xl font-bold">Make a YouTube Video</div>
-                <div className="text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, praesentium! Voluptas soluta fugiat nostrum se</div>
-            </div>
-           </div>
-        
+                switch (taskStatus) {
+                    case 'active':
+                        return <AcceptedTask />;
+                    case 'newTask':
+                        return <NewTask />;
+                    case 'completed':
+                        return <CompleteTask />;
+                    case 'failed':
+                        return <FailedTask />;
+                    default:
+                        return null; // Or you can handle any default case, if needed
+                }
+            })} */}
+
         </div>
     )
 }

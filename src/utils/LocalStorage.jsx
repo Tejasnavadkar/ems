@@ -200,7 +200,7 @@ const employees = [
   {
     "id": 1,
     "name": "Amit",
-    "email": "employee1@example.com",
+    "email": "e@e.com",
     "password": "123",
     "tasks": [
       {
@@ -432,6 +432,7 @@ const employees = [
 
 const admin = [{
     "id": 6,
+    "name":'admin',
     "email": "admin@example.com",
     "password": "123"
 }];
@@ -447,7 +448,7 @@ export const getLocalStorage = () =>{
  const employees = JSON.parse(localStorage.getItem('employees'))
  const admin = JSON.parse(localStorage.getItem('admin'))
 
- console.log('emp & admin---',employees,admin)
+//  console.log('emp & admin---',employees,admin)
 
  return {employees,admin}
 }

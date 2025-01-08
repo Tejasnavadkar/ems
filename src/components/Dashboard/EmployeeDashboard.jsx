@@ -5,7 +5,7 @@ import { TaskLists } from "../others/TaskLists"
 
 const EmployeeDashboard = ({user}) =>{
 
-    console.log('user--',user)
+    // console.log('user--',user)
 
     return (
         

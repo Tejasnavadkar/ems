@@ -11,21 +11,25 @@ import { AuthContext } from './context/AuthProvider'
 
 function App() {
   const [user, setUser] = useState(null)
-  const [loggedinUser,setLogedinUser] = useState(null)
+  const [loggedinUserData,setLogedinUserData] = useState(null)
  
 
   const AuthData = useContext(AuthContext)
 
    useEffect(()=>{
 
-    if(AuthData){
-    const LoggedInUser = JSON.parse(localStorage.getItem('LoggedInUser'))
-    setUser(LoggedInUser?.role)
-    }
     
-  },[AuthData])
+    const LoggedInUser = JSON.parse(localStorage.getItem('LogedInUser'))
+    if(LoggedInUser){
+      setUser(LoggedInUser.role)
+      setLogedinUserData(LoggedInUser.data)
+    }
 
-  console.log('find',AuthData?.employees?.find((emp)=> emp.email === 'employee3@example.com' && emp.password === '123'))
+  
+    
+  },[])
+
+  // console.log('find',AuthData?.employees?.find((emp)=> emp.email === 'employee3@example.com' && emp.password === '123'))
 
   const handleLogin = (email,password) =>{
 
@@ -36,11 +40,11 @@ function App() {
     }else if(AuthData){
       // setUser('user')
      const employee = AuthData?.employees?.find((emp)=> emp.email === email && emp.password === password)
-     console.log('employee--',employee)
+    //  console.log('employee--',employee)
      if(employee){
       setUser('employee')
-      setLogedinUser(employee)
-      localStorage.setItem('LogedInUser',JSON.stringify({role:'employee'}))
+      setLogedinUserData(employee)
+      localStorage.setItem('LogedInUser',JSON.stringify({role:'employee',data:employee}))
       console.log('this is user')
      }else{
       console.log('hey from 1')
@@ -62,7 +66,7 @@ function App() {
       
       <div>
         {!user ?<Login handleLogin={handleLogin} /> : ""}
-        {user == 'admin' ? <AdminDashboard/> : (user == 'employee' ?  <EmployeeDashboard user={loggedinUser}/> : null) }
+        {user == 'admin' ? <AdminDashboard/> : (user == 'employee' ?  <EmployeeDashboard user={loggedinUserData}/> : null) }
         {/* <EmployeeDashboard/> */}
         {/* <AdminDashboard/> */}
        
