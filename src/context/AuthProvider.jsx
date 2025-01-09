@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react"
 import { getLocalStorage, setLocalStorage } from "../utils/LocalStorage"
 
 
-export const AuthContext = createContext(null)
+export const AuthContext = createContext()
 
 // export const useAuthContext = () =>{
 //     if(AuthContext == null) throw Error('context is null ,wrapup')
@@ -12,11 +12,11 @@ export const AuthContext = createContext(null)
 
 export const AuthProvider = ({children}) =>{
     const [userData,setUserData] = useState(null)
-     
+    // setLocalStorage()
    useEffect(()=>{
     setLocalStorage()
-    const {employees,admin} = getLocalStorage()
-    setUserData({employees,admin})
+    const {employees} = getLocalStorage()
+    setUserData({employees})
     
    },[])
     
@@ -24,7 +24,7 @@ export const AuthProvider = ({children}) =>{
 
     return (
         <div>
-            <AuthContext.Provider value={userData}>
+            <AuthContext.Provider value={[userData,setUserData]}>
                {children}
             </AuthContext.Provider>
             

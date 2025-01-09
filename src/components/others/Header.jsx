@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react"
 
 
-export const Header = ({data}) =>{
+export const Header = ({data,setUser}) =>{
     // console.log('Header-data',data)
-   const [user,setUser] = useState('')
+   const [user,setUser1] = useState('')
 
    useEffect(()=>{
     if(!data){
-        setUser('admin')
+        setUser1('admin')
     }else{
-        setUser(data.name)
+        setUser1(data.name)
     }
    },[])
 
@@ -22,7 +22,8 @@ export const Header = ({data}) =>{
             <div>
             <button onClick={()=>{
                 localStorage.removeItem('LogedInUser');
-                window.location.reload(); // force page relaod
+                // window.location.reload(); // force page relaod
+                setUser('')
                 
                 }} className="bg-red-600 rounded-md px-4 py-2 ">Log Out</button>
             </div>

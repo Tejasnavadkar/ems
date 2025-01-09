@@ -9,15 +9,15 @@ export const TaskLists = ({ data }) => {
     return (
         <div id="TaskList" className="  w-full h-[40%] mt-8 px-4 flex flex-nowrap  gap-3 overflow-x-auto "> {/* grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] */}
 
-            {data.tasks.map((task) => {
+            {data.tasks.map((task,idx) => {
                 if (task.active) {
-                    return <AcceptedTask task={task} />
+                    return <AcceptedTask key={idx} task={task} />
                 } else if (task.newTask) {
-                    return <NewTask task={task} />
+                    return <NewTask key={idx} task={task} />
                 } else if (task.completed) {
-                    return <CompleteTask task={task} />
+                    return <CompleteTask key={idx} task={task} />
                 } else if (task.failed) {
-                    return <FailedTask task={task} />
+                    return <FailedTask key={idx} task={task} />
                 }
             })}
 
