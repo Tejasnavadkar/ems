@@ -20,6 +20,7 @@ function App() {
 
     setLocalStorage()
     const LoggedInUser = JSON.parse(localStorage.getItem('LogedInUser'))
+    console.log('LoggedInUser---------------------======',LoggedInUser)
     if(LoggedInUser){
       setUser(LoggedInUser.role)
       setLogedinUserData(LoggedInUser.data)

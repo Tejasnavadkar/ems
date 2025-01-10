@@ -9,78 +9,80 @@ export const CreateTask = () =>{
     
    
   const [creatTaskInputs,setCreateTaskInputs] = useState({
-        title:'',
-        date:'',
+    taskTitle:'',
+        taskDate:'',
         assignTo:'',
         category:'',
-        description:''
+        taskDescription:''
 
     })
 
     const [Newtask,setNewTask] = useState({})
 
     const submitHandler = (e) =>{
-        setLocalStorage()
+        // setLocalStorage()
         // setLocalStorage()
         e.preventDefault()
         // console.log(creatTaskInputs)
         setNewTask({...creatTaskInputs,newTask:true,active:true,completed:false,failed:false})  // spread and add new props also
 
-       const EmpData = userData.employees
-       console.log('EmpData outside loop--',EmpData)
+    //    const EmpData = userData.employees
+    //    console.log('EmpData outside loop--',EmpData)
     //    console.log('EmpData--',EmpData)
-       EmpData?.forEach(element => {
+    const updatedEmpData = userData.employees?.map(employee => {
         console.log('inside EmpData')
-        if(element.name === creatTaskInputs.assignTo){
-            element.taskCounts.newTask += 1
-            element.tasks.push(Newtask)
-            
+        if(employee.name === creatTaskInputs.assignTo){
+            // element.taskCounts.newTask += 1
+            // element.tasks.push(Newtask)
+            return {
+                ...employee,
+                taskCounts: { ...employee.taskCounts, newTask: employee.taskCounts.newTask + 1 },
+                tasks: [...employee.tasks, Newtask], // Add the new task
+            };
         }
-        setUserData(EmpData)
-        console.log('newEmp',EmpData)
+        return employee;
+        // setUserData(EmpData)
+        // console.log('newEmp',EmpData)
        });
 
-    //    localStorage.setItem('employees',JSON.stringify(EmpData))
+       setUserData({ employees: updatedEmpData });
+
+       localStorage.setItem('employees',JSON.stringify(updatedEmpData))
+       console.log('newEmp',userData.employees)
         setCreateTaskInputs({
-            title:'',
-            date:'',
+            taskTitle:'',
+            taskDate:'',
             assignTo:'',
             category:'',
-            description:''
+            taskDescription:''
         })
-    
-       
-
-
     }
  
     // console.log('Newtask--',Newtask)
 
     return (
         <div>
-        {JSON.stringify(creatTaskInputs)}
             <form onSubmit={(e)=>submitHandler(e)} className="grid grid-cols-2 bg-[#1c1c1c] mt-4" >
                 <div className="mt-4 flex flex-col px-20 gap-3 py-3">
                     <div className="text-2xl font-bold">Create Task</div>
 
                     <div className="flex flex-col gap-2">
                         <label htmlFor="">Task Title</label>
-                        <input value={creatTaskInputs.title} onChange={(e)=>{
+                        <input value={creatTaskInputs.taskTitle} onChange={(e)=>{
                             setCreateTaskInputs({
                                 ...creatTaskInputs,
-                                title:e.target.value
+                                taskTitle:e.target.value
                             })
                         }} type="text" className="bg-slate-700 py-2 px-3 rounded-lg" placeholder="Task...." />
                     </div>
 
-                  
 
                     <div className="flex flex-col gap-2" >
                         <label htmlFor="">Date </label>
-                        <input value={creatTaskInputs.date} onChange={(e)=>{
+                        <input value={creatTaskInputs.taskDate} onChange={(e)=>{
                             setCreateTaskInputs({
                                 ...creatTaskInputs,
-                                date:e.target.value
+                                taskDate:e.target.value
                             })
                         }} className="bg-slate-700 py-2 px-3 rounded-lg" type="date" name="" id="" />
                     </div>
@@ -110,10 +112,10 @@ export const CreateTask = () =>{
                 <div className="mt-4 flex flex-col px-20 gap-3 py-3">
                   <div className="flex flex-col gap-2" >
                         <label htmlFor="">Description </label>
-                        <textarea value={creatTaskInputs.description} onChange={(e)=>{
+                        <textarea value={creatTaskInputs.taskDescription} onChange={(e)=>{
                             setCreateTaskInputs({
                                 ...creatTaskInputs,
-                                description:e.target.value
+                                taskDescription:e.target.value
                             })
                         }} className="bg-slate-700 py-2 px-3 rounded-lg" type="text" cols={30} rows={10} placeholder="Description...." />
                     </div>
